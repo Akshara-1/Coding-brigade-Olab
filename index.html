@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLabs - Learn Innovatively</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="https://i.pinimg.com/474x/38/78/9d/38789de6a12504ee69e7210ab9e3fd94.jpg" alt="OLabs Logo" class="logo">
+            <h1>OLabs</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                <li><a href="#quiz" onclick="showSection('quiz')">Quiz</a></li>
+                <li><a href="#leaderboard" onclick="showSection('leaderboard')">Leaderboard</a></li>
+                <li><a href="#chatbox" onclick="showSection('chatbox')">Chatbox</a></li>
+                <li><a href="#chatbot" onclick="showSection('chatbot')">Chatbot</a></li>
+                <li><a href="#community" onclick="showSection('community')">Community</a></li>
+                <li id="signout-li" style="display: none;"><a href="#" class="signout" onclick="signOut()">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="login-section" class="section active">
+        <div class="login-hero">
+            <h2>Welcome to OLabs</h2>
+            <p class="subtitle">Sign in to start your learning journey</p>
+            <div class="login-container">
+                <div class="login-card">
+                    <input type="text" id="login-username" placeholder="Username" class="login-input">
+                    <input type="password" id="login-password" placeholder="Password" class="login-input">
+                    <button onclick="login()" class="login-button">Sign In</button>
+                    <p><a href="#" onclick="showSection('signup-section')">Sign Up</a> | <a href="#" onclick="showSection('forgot-password-section')">Forgot Password?</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup-section" class="section">
+        <div class="login-hero">
+            <h2>Sign Up for OLabs</h2>
+            <p class="subtitle">Create your account</p>
+            <div class="login-container">
+                <div class="login-card">
+                    <input type="text" id="signup-name" placeholder="Full Name" class="login-input">
+                    <input type="text" id="signup-username" placeholder="Username" class="login-input">
+                    <input type="password" id="signup-password" placeholder="Password" class="login-input">
+                    <input type="password" id="signup-confirm-password" placeholder="Confirm Password" class="login-input">
+                    <input type="date" id="signup-dob" class="login-input">
+                    <input type="email" id="signup-email" placeholder="Email Address" class="login-input">
+                    <input type="tel" id="signup-contact" placeholder="Contact Number" class="login-input">
+                    <button onclick="signup()" class="login-button">Sign Up</button>
+                    <p><a href="#" onclick="showSection('login-section')">Back to Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="forgot-password-section" class="section">
+        <div class="login-hero">
+            <h2>Forgot Password</h2>
+            <p class="subtitle">Reset your password</p>
+            <div class="login-container">
+                <div class="login-card">
+                    <input type="email" id="forgot-email" placeholder="Registered Email Address" class="login-input">
+                    <button onclick="sendResetCode()" class="login-button">Send Reset Code</button>
+                    <input type="text" id="reset-code" placeholder="Enter Reset Code" class="login-input" style="display: none;">
+                    <input type="password" id="new-password" placeholder="New Password" class="login-input" style="display: none;">
+                    <input type="password" id="confirm-new-password" placeholder="Confirm New Password" class="login-input" style="display: none;">
+                    <button onclick="resetPassword()" id="reset-button" class="login-button" style="display: none;">Reset Password</button>
+                    <p><a href="#" onclick="showSection('login-section')">Back to Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rest of the sections (home, quiz, leaderboard, chatbox, chatbot, community) remain unchanged -->
+    <section id="home" class="section">
+        <div class="hero">
+            <h2>Revolutionary Learning Experience</h2>
+            <p class="subtitle">Designed to inspire and educate</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="emoji">🎮</span>
+                    <h3>Interactive Quizzes</h3>
+                    <p>Test your knowledge with engaging Physics and Chemistry challenges</p>
+                </div>
+                <div class="feature-card">
+                    <span class="emoji">🏆</span>
+                    <h3>Leaderboard & Community</h3>
+                    <p>Track your progress, compete, and chat with peers</p>
+                </div>
+                <div class="feature-card">
+                    <span class="emoji">💬</span>
+                    <h3>Chatbox & Chatbot</h3>
+                    <p>Ask questions to teachers or get instant help from our AI assistant</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="section">
+        <div class="content-card">
+            <h2>Challenge Your Mind</h2>
+            <div id="subject-selection">
+                <button onclick="startQuiz('Physics')" class="action-button">Physics</button>
+                <button onclick="startQuiz('Chemistry')" class="action-button">Chemistry</button>
+            </div>
+            <div id="quiz-container" style="display: none;">
+                <h3 id="question-text"></h3>
+                <div id="options" class="options-container"></div>
+            </div>
+            <div id="quiz-result" style="display: none;">
+                <h3>Congratulations!</h3>
+                <p class="result-text">Your Score: <span id="final-score"></span> out of <span id="total-questions"></span></p>
+                <p id="score-comment" class="comment-text"></p>
+                <button onclick="backToQuiz(); updateLeaderboard();" class="action-button">Continue Learning</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="leaderboard" class="section">
+        <div class="content-card">
+            <h2>Hall of Excellence</h2>
+            <div class="leaderboard-controls">
+                <select id="subject-filter" onchange="updateLeaderboard()">
+                    <option value="Overall">Overall</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                </select>
+                <button onclick="clearLeaderboard()" class="secondary-button">Reset Scores</button>
+            </div>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="chatbox" class="section">
+        <div class="content-card">
+            <h2>Student-Teacher Chatbox</h2>
+            <div id="chatbox-role-selection" class="role-container">
+                <p>Are you a student or faculty?</p>
+                <button onclick="selectRole('student')" class="action-button">Student (s)</button>
+                <button onclick="selectRole('faculty')" class="action-button">Faculty (f)</button>
+                <div id="faculty-password" style="display: none;">
+                    <input type="password" id="password-input" placeholder="Enter faculty password" class="login-input">
+                    <button onclick="verifyFacultyPassword()" class="action-button">Submit</button>
+                    <p id="password-error" style="color: red; display: none;">Incorrect password!</p>
+                </div>
+            </div>
+            <div id="chatbox-chat" style="display: none;">
+                <div id="chatbox-messages" class="chat-container"></div>
+                <div class="chat-input">
+                    <input type="text" id="chatbox-input" placeholder="Type here...">
+                    <button onclick="sendChatboxMessage()" class="chat-send-button">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chatbot" class="section">
+        <div class="content-card">
+            <h2>Your AI Assistant</h2>
+            <div id="chatbot-messages" class="chat-container"></div>
+            <div class="chat-input">
+                <input type="text" id="chatbot-input" placeholder="Ask me anything (or type 'exit' to quit)...">
+                <button onclick="sendChatbotMessage()" class="chat-send-button">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="section">
+        <div class="content-card">
+            <h2>Community Chat</h2>
+            <div id="community-messages" class="chat-container"></div>
+            <div class="chat-input">
+                <input type="text" id="community-input" placeholder="Share your thoughts...">
+                <button onclick="sendCommunityMessage()" class="chat-send-button">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
